@@ -25,10 +25,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: staging
+          token: ${{ secrets.PAT }}
       - name: Merge master back to staging
         run: |
           git fetch --unshallow
           git checkout staging
           git pull
           git merge --no-ff origin/main -m "Auto-merge main back to staging"
-          git push
+      - name: Pushing to the protected branch 'staging'
+        uses: CasperWA/push-protected@6b25de805895da731062c43da647425fbb383128 #v2.14
+        with:
+          token: ${{ secrets.PAT }}
+          branch: staging
