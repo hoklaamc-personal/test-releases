@@ -1,10 +1,10 @@
 name: Deploy Main
 
-concurrency: test-staging-deployment
+concurrency: test-main-deployment
 
 on:
-  release:
-    types: [published, deleted]
+  push:
+    branches: [main]
 
 jobs:
   deploy:
