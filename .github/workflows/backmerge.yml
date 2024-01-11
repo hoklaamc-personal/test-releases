@@ -1,7 +1,7 @@
 name: Back merge
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
     types: [closed]
 jobs:
   # Needed until staging deployments happen independently of production.
@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Wait for master deploy
         run: |
-          sleep 60
+          sleep 540
   backmerge-master:
     needs: [backmerge-delay]
     if: github.event.pull_request.merged == true
