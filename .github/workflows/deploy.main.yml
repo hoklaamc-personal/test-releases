@@ -1,0 +1,16 @@
+name: Deploy Main
+
+concurrency: test-staging-deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run post-deploy script
+        run: |
+          echo "Run deploy script"
