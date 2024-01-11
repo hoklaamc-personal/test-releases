@@ -3,14 +3,20 @@ name: Deploy Main
 concurrency: test-staging-deployment
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published, deleted]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Fetch latest release
+        uses: thebritican/fetch-latest-release@v1.0.3
+        with:
+          github_token: ${{ secrets.PAT }}
+      - uses: actions/checkout@v2
+        with: 
+          ref: ${{ steps.latest.outputs.tag_name }}
       - name: Run post-deploy script
         run: |
           echo "Run deploy script"
