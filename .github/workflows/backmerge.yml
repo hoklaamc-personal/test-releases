@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Wait for master deploy
         run: |
-          sleep 540
+          sleep 60
   backmerge-master:
     needs: [backmerge-delay]
     if: github.event.pull_request.merged == true
@@ -21,6 +21,10 @@ jobs:
         run: |
           git config --global user.email "hoklaam.cheng@gmail.com"
           git config --global user.name "Hok Laam Cheng"
+      - name: Checkout staging
+        uses: actions/checkout@v2
+        with:
+          ref: staging
       - name: Merge master back to staging
         run: |
           git fetch --unshallow
