@@ -1,7 +1,8 @@
 name: Back merge
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches: [master]
+    types: [closed]
 jobs:
   # Needed until staging deployments happen independently of production.
   backmerge-delay:
