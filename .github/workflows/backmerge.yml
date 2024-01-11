@@ -1,0 +1,29 @@
+name: Back merge
+on:
+  push:
+    branches: [main]
+jobs:
+  # Needed until staging deployments happen independently of production.
+  backmerge-delay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for master deploy
+        run: |
+          sleep 60
+  backmerge-master:
+    needs: [backmerge-delay]
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Set Git config
+        run: |
+          git config --global user.email "hoklaam.cheng@gmail.com"
+          git config --global user.name "Hok Laam Cheng"
+      - name: Merge master back to staging
+        run: |
+          git fetch --unshallow
+          git checkout staging
+          git pull
+          git merge --no-ff origin/main -m "Auto-merge main back to staging"
+          git push
