@@ -43,13 +43,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Deploy
         run: |
-          # Use the commit input value if provided, otherwise get the latest commit SHA from master
           COMMIT_SHA=${{ github.event.after }}
           if [ -n "${{ github.event.inputs.commit }}" ]; then
             COMMIT_SHA=${{ github.event.inputs.commit }}
           fi
 
-          # Your custom script or commands using the COMMIT_SHA variable
           echo "Using commit SHA: $COMMIT_SHA"
