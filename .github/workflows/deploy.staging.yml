@@ -6,6 +6,13 @@ on:
   push:
     branches:
       - staging
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Commit SHA1
+        required: true
+        default: ${{ github.ref.GITHUB_SHA }}
+        type: string
 
 jobs:
   deploy:
@@ -13,4 +20,4 @@ jobs:
     steps:
       - name: Run post-deploy script
         run: |
-          echo "Run deploy script"
+          echo "Run deploy script. Commit: ${{ github.event.inputs.commit }}"
