@@ -11,7 +11,7 @@ on:
       commit:
         description: Commit SHA1
         required: true
-        default: $GITHUB_SHA
+        default: "undefined"
         type: string
 
 jobs:
@@ -20,4 +20,4 @@ jobs:
     steps:
       - name: Run post-deploy script
         run: |
-          echo "Run deploy script. Commit: ${{ github.event.inputs.commit }}"
+          echo "Run deploy script. Commit: $GITHUB_SHA"
