@@ -11,7 +11,7 @@ on:
       commit:
         description: Commit SHA1
         required: true
-        default: ${{ github.ref.GITHUB_SHA }}
+        default: $GITHUB_SHA
         type: string
 
 jobs:
