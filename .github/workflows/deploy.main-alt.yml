@@ -1,0 +1,16 @@
+name: Deploy Main Alt
+
+concurrency: test-main-deployment
+
+on:
+  push:
+    branches: [main-alt]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy
+        run: |
+          echo "Deploy Main Alt"

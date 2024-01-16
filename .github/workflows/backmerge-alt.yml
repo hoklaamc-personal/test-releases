@@ -1,0 +1,32 @@
+name: Back merge alt
+on:
+  pull_request:
+    branches: [main-alt]
+    types: [closed]
+jobs:
+  backmerge-master:
+    needs: [backmerge-delay]
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Set Git config
+        run: |
+          git config --global user.email "hoklaam.cheng@gmail.com"
+          git config --global user.name "Hok Laam Cheng"
+      - name: Checkout staging-alt
+        uses: actions/checkout@v2
+        with:
+          ref: staging-alt
+          token: ${{ secrets.PAT }}
+      - name: Merge master back to staging-alt
+        run: |
+          git fetch --unshallow
+          git checkout staging-alt
+          git pull
+          git merge --no-ff origin/main -m "Auto-merge main-alt back to staging-alt"
+      - name: Pushing to the protected branch 'staging-alt'
+        uses: CasperWA/push-protected@6b25de805895da731062c43da647425fbb383128 #v2.14
+        with:
+          token: ${{ secrets.PAT }}
+          branch: staging-alt
