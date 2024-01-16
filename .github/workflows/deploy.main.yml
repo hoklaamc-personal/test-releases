@@ -5,18 +5,24 @@ concurrency: test-main-deployment
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: 'Commit SHA (default: latest from master)'
+        required: false
+        default: ''
+        type: string
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch latest release
-        uses: thebritican/fetch-latest-release@v1.0.3
-        with:
-          github_token: ${{ secrets.PAT }}
-      - uses: actions/checkout@v2
-        with: 
-          ref: ${{ steps.latest.outputs.tag_name }}
-      - name: Run post-deploy script
+      - uses: actions/checkout@master
+      - name: Deploy
         run: |
-          echo "Run deploy script"
+          COMMIT_SHA=${{ github.event.after }}
+          if [ -n "${{ github.event.inputs.commit }}" ]; then
+            COMMIT_SHA=${{ github.event.inputs.commit }}
+          fi
+
+          echo "Using commit SHA: $COMMIT_SHA"
