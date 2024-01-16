@@ -1,3 +1,27 @@
+# name: Deploy Staging
+
+# concurrency: test-staging-deployment
+
+# on:
+#   push:
+#     branches:
+#       - staging
+#   workflow_dispatch:
+#     inputs:
+#       commit:
+#         description: Commit SHA1
+#         required: true
+#         default: "undefined"
+#         type: string
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Run post-deploy script
+#         run: |
+#           echo "Run deploy script. Commit: $GITHUB_SHA"
+
 name: Deploy Staging
 
 concurrency: test-staging-deployment
@@ -6,11 +30,26 @@ on:
   push:
     branches:
       - staging
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: 'Commit SHA (default: latest from master)'
+        required: false
+        default: ''
+        type: string
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Run post-deploy script
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Deploy
         run: |
-          echo "Run deploy script"
+          COMMIT_SHA=${{ github.event.after }}
+          if [ -n "${{ github.event.inputs.commit }}" ]; then
+            COMMIT_SHA=${{ github.event.inputs.commit }}
+          fi
+
+          echo "Using commit SHA: $COMMIT_SHA"
