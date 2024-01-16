@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Deploy
         run: |
-          COMMIT_SHA=$GITHUB_SHA
+          COMMIT_SHA=${{ github.sha }}
           if [ -n "${{ github.event.inputs.commit }}" ]; then
             COMMIT_SHA=${{ github.event.inputs.commit }}
           fi
