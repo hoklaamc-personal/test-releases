@@ -1,0 +1,43 @@
+# name: Deploy Staging
+
+# concurrency: test-staging-deployment
+
+# on:
+#   push:
+#     branches:
+#       - staging
+#   workflow_dispatch:
+#     inputs:
+#       commit:
+#         description: Commit SHA1
+#         required: true
+#         default: "undefined"
+#         type: string
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Run post-deploy script
+#         run: |
+#           echo "Run deploy script. Commit: $GITHUB_SHA"
+
+name: Deploy Staging
+
+concurrency: test-staging-deployment
+
+on:
+  push:
+    branches:
+      - staging-alt
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Deploy
+        run: |
+          echo "Deploy staging alt"
