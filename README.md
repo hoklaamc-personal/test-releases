@@ -2,4 +2,4 @@
 
 Buggy commit
 
-Commit 2
+Another commit
