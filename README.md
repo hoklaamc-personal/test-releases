@@ -1,5 +1,5 @@
 # Test Releases
 
-Buggy commit
+Fixed buggy code
 
 Another commit
