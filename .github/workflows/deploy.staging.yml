@@ -46,10 +46,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Some check
+        id: check
         run: |
           echo "Some check"
           exit 0
       - name: Deploy
+        if: steps.check.outcome == 'success'
         run: |
           COMMIT_SHA=${{ github.sha }}
           if [ -n "${{ github.event.inputs.commit }}" ]; then
