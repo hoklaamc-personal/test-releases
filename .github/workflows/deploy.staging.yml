@@ -45,6 +45,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
+      - name: Some check
+        run: |
+          echo "Some check"
+          exit 0
       - name: Deploy
         run: |
           COMMIT_SHA=${{ github.sha }}
