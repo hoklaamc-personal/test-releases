@@ -51,7 +51,6 @@ jobs:
           echo "Some check"
           exit 1
       - name: Deploy
-        if: steps.check.outcome == 'success'
         run: |
           COMMIT_SHA=${{ github.sha }}
           if [ -n "${{ github.event.inputs.commit }}" ]; then
