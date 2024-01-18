@@ -49,7 +49,7 @@ jobs:
         id: check
         run: |
           echo "Some check"
-          exit 0
+          exit 1
       - name: Deploy
         if: steps.check.outcome == 'success'
         run: |
