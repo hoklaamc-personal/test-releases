@@ -54,7 +54,7 @@ jobs:
 
           echo "Using commit SHA: $COMMIT_SHA"
   on-failure:
-    
+    if: ${{ github.event.workflow_run.conclusion != 'success' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "Deploy failed due to failed staging push CI"
