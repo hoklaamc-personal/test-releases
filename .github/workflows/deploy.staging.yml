@@ -41,8 +41,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - if: ${{ github.event.workflow_run.conclusion != 'success' }}
+        run: exit 1
       - name: Checkout code
         uses: actions/checkout@master
       - name: Deploy
@@ -53,9 +54,8 @@ jobs:
           fi
 
           echo "Using commit SHA: $COMMIT_SHA"
-  on-failure:
-    if: ${{ github.event.workflow_run.conclusion != 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Deploy failed due to failed staging push CI"
-      - run: exit 1
+  # on-failure:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "Deploy failed due to failed staging push CI"
+  #     - run: exit 1
