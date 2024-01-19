@@ -53,3 +53,9 @@ jobs:
           fi
 
           echo "Using commit SHA: $COMMIT_SHA"
+  on-failure:
+    
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy failed due to failed staging push CI"
+      - run: exit 1
