@@ -27,9 +27,9 @@ name: Deploy Staging
 concurrency: test-staging-deployment
 
 on:
-  push:
-    branches:
-      - staging
+  workflow_run:
+    workflows: [Staging Push CI]
+    types: [completed]
   workflow_dispatch:
     inputs:
       commit:
@@ -45,11 +45,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
-      - name: Some check
-        id: check
-        run: |
-          echo "Some check"
-          exit 1
       - name: Deploy
         run: |
           COMMIT_SHA=${{ github.sha }}
