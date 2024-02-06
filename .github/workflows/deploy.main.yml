@@ -1,6 +1,8 @@
 name: Deploy Main
 
-concurrency: test-main-deployment
+concurrency:
+  group: test-main-deployment
+  cancel-in-progress: true
 
 on:
   push:
@@ -16,6 +18,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - uses: actions/checkout@master
       - name: Deploy

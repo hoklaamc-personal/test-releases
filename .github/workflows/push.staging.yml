@@ -1,0 +1,14 @@
+on:
+  push:
+    branches:
+      - staging
+
+name: Staging Push CI
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Run check pass"
+      - run: exit 0

@@ -1,35 +1,13 @@
-# name: Deploy Staging
-
-# concurrency: test-staging-deployment
-
-# on:
-#   push:
-#     branches:
-#       - staging
-#   workflow_dispatch:
-#     inputs:
-#       commit:
-#         description: Commit SHA1
-#         required: true
-#         default: "undefined"
-#         type: string
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Run post-deploy script
-#         run: |
-#           echo "Run deploy script. Commit: $GITHUB_SHA"
-
 name: Deploy Staging
 
-concurrency: test-staging-deployment
+concurrency:
+  group: test-staging-deployment
+  cancel-in-progress: true
 
 on:
-  push:
-    branches:
-      - staging
+  workflow_run:
+    workflows: [Staging Push CI]
+    types: [completed]
   workflow_dispatch:
     inputs:
       commit:
@@ -41,8 +19,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    environment: staging
     steps:
+      - if: ${{ github.event.workflow_run.conclusion != 'success' }}
+        run: exit 1
       - name: Checkout code
         uses: actions/checkout@master
       - name: Deploy
@@ -53,3 +33,8 @@ jobs:
           fi
 
           echo "Using commit SHA: $COMMIT_SHA"
+  # on-failure:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "Deploy failed due to failed staging push CI"
+  #     - run: exit 1
