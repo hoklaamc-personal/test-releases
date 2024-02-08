@@ -30,6 +30,7 @@ jobs:
           COMMIT_SHA=${{ github.sha }}
           if [ ${{ github.event_name }} == "workflow_run" ] && [ ${{ github.actor }} == "hoklaamc" ]; then
             echo "You do not have the permissions to manually trigger a deploy. Ask for assistance from an admin."
+            exit 1
           fi
 
           if [ -n "${{ github.event.inputs.commit }}" ]; then
