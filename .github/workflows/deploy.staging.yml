@@ -28,7 +28,7 @@ jobs:
       - name: Deploy
         run: |
           COMMIT_SHA=${{ github.sha }}
-          if [ -n "${{ github.event.inputs.commit }}" ]; then
+          if [ -n "${{ github.event.inputs.commit }}" ]  && [ "${{github.actor}}" == "hoklaamc" ]; then
             COMMIT_SHA=${{ github.event.inputs.commit }}
           fi
 
