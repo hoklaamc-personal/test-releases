@@ -3,3 +3,5 @@
 Buggy commit
 
 Good commit
+
+Change
