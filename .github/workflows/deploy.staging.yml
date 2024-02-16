@@ -23,9 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          ref: ${{ github.event.inputs.commit_sha || 'master' }}
+          ref: ${{ github.event.inputs.commit_sha || 'staging' }}
       - name: Deploy
-        run: git log --pretty=format:'%h' -n 1
+        run: git rev-parse HEAD
   # on-failure:
   #   runs-on: ubuntu-latest
   #   steps:
