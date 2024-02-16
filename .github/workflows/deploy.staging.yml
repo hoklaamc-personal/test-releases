@@ -8,38 +8,14 @@ on:
   workflow_run:
     workflows: [Staging Push CI]
     types: [completed]
-  workflow_dispatch:
-    inputs:
-      commit:
-        description: 'Commit SHA (default: latest from master)'
-        required: false
-        default: ''
-        type: string
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - if: github.event.workflow_run.conclusion != 'success' && github.event_name == 'workflow_run'
-        run: exit 1
-      - name: Checkout code
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
+        with:
+          ref: staging
       - name: Deploy
-        run: |
-          COMMIT_SHA=${{ github.sha }}
-          if [ ${{ github.event_name }} == "workflow_dispatch" ] && [ ${{ github.actor }} != "hoklaamc" ]; then
-            echo "You do not have the permissions to manually trigger a deploy. Ask for assistance from an admin."
-            exit 1
-          fi
-
-          if [ -n "${{ github.event.inputs.commit }}" ]; then
-            COMMIT_SHA=${{ github.event.inputs.commit }}
-          fi
-
-          echo "Using commit SHA: $COMMIT_SHA"
-  # on-failure:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: echo "Deploy failed due to failed staging push CI"
-  #     - run: exit 1
+        run: git rev-parse HEAD
