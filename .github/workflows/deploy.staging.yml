@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          ref: ${{ github.event.inputs.commit_sha || 'staging' }}
+          ref: ${{ github.event.inputs.commit || 'staging' }}
       - name: Deploy
         run: git rev-parse HEAD
   # on-failure:
