@@ -25,7 +25,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.commit_sha || 'master' }}
       - name: Deploy
-        run: git rev-parse HEAD
+        run: git log --pretty=format:'%h' -n 1
   # on-failure:
   #   runs-on: ubuntu-latest
   #   steps:
