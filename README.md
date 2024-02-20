@@ -1,9 +1,3 @@
 # Test Releases
 
-Buggy commit
-
-Good commit
-
-Change
-
-Change 2
+Repo to test release workflow
