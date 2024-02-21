@@ -1,8 +1,6 @@
 name: Deploy Staging
 
-concurrency:
-  group: test-staging-deployment
-  cancel-in-progress: true
+concurrency: test-staging-deployment
 
 on:
   workflow_run:
