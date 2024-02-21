@@ -1,8 +1,6 @@
 name: Deploy Main
 
-concurrency:
-  group: test-main-deployment
-  cancel-in-progress: true
+concurrency: test-main-deployment
 
 on:
   push:
