@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Set Git config
+        run: |
+          git config --global user.email "hoklaam.cheng@gmail.com"
+          git config --global user.name "Hok Laam Cheng"
       - name: Generate GitHub App token
         id: generate_token
         uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
