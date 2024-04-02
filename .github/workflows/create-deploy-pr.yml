@@ -31,3 +31,4 @@ jobs:
         with:
           token: ${{ steps.generate_token.outputs.token }}
           branch: weekly-deploy-${{ steps.date.outputs.date }}
+          title: "Other(N/A): Weekly Deploy [${{ steps.date.outputs.date }}]"
