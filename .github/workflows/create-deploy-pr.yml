@@ -9,6 +9,9 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Generate GitHub App token
@@ -18,7 +21,9 @@ jobs:
           app_id: ${{ secrets.TEST_APP_ID }}
           private_key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
 
-      - name: Run script to create pull request
-        run: node create-pull-request.js
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          branch: weekly-deploy-${{ steps.date.outputs.date }}
+          base: main
