@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Approve PR
         uses: hmarr/auto-approve-action@v4
-        if: github.actor == 'hok-personal-test-releases'
         with:
           review-message: "Auto approved automated PR"
           github-token: ${{ secrets.PAT }}
