@@ -18,7 +18,7 @@ jobs:
           private_key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
       - name: Approve PR
         uses: hmarr/auto-approve-action@v4
-        if: github.event.pull_request.user.name == 'hok-personal-test-releases'
+        if: github.actor == 'hok-personal-test-releases'
         with:
           review-message: "Auto approved automated PR"
           github-token: ${{ secrets.PAT }}
