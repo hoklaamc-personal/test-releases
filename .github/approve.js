@@ -5,4 +5,5 @@ module.exports = ({github, context}) => {
     pull_number: context.issue.number
   });
   console.log(reviewers);
+  console.log(reviewers);
 }
