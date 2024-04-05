@@ -1,0 +1,16 @@
+name: Merge Deploy Pull Request
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  approve:
+    name: Merge deploy pull request
+    runs-on: ubuntu-latest
+    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == 'merge'}}
+    steps:
+      - run: |
+          echo A comment on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
