@@ -1,14 +1,14 @@
-name: Merge Deploy Pull Request
+name: Approve Deploy PR
 
 on:
-  issue_comment:
-    types: [created]
+  pull_request_target:
+    types: [opened]
+  
 
 jobs:
   approve:
-    name: Merge deploy pull request
+    name: Approve deploy pull request
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == 'merge'}}
     steps:
       - name: Generate GitHub App token
         id: generate_token
