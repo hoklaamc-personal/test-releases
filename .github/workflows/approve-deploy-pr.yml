@@ -20,10 +20,5 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            const reviewers = github.rest.pulls.listRequestedReviewers({
-              owner: context.repo.owner
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-            console.log(reviewers);
-            console.log(reviewers);
+            const script = require('./path/to/script.js');
+            script({github, context});
