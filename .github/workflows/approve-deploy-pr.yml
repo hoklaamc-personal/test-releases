@@ -19,3 +19,4 @@ jobs:
       - uses: hmarr/auto-approve-action@v4
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
+          review-message: 'Auto approve'
