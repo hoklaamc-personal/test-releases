@@ -1,0 +1,21 @@
+name: Approve Deploy PR
+
+on:
+  pull_request_target:
+    types: [opened]
+  
+
+jobs:
+  approve:
+    name: Approve deploy pull request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: generate_token
+        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+        with:
+          app_id: ${{ secrets.TEST_APP_ID }}
+          private_key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
+      - uses: hmarr/auto-approve-action@v4
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
