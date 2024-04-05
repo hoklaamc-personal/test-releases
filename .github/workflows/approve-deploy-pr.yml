@@ -20,5 +20,5 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            const script = require('./path/to/script.js');
+            const script = require('../approve.js');
             script({github, context});
