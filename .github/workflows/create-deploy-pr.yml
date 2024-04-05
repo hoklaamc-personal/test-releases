@@ -1,8 +1,9 @@
 name: Schedule Pull Request
 
-on:
-  push:
-    branches: [staging]
+on: workflow_dispatch
+
+#   schedule:
+#     - cron: '0 13 * * 1' # Every Monday at 1 PM
 
 jobs:
   create-pull-request:
