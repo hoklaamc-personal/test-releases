@@ -21,9 +21,15 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            const reviewers = await github.rest.pulls.listRequestedReviewers({
+            const reviewersData = await github.rest.pulls.listRequestedReviewers({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number
-            });
-            console.log(reviewers);
+            }).data;
+            const reviewers = [...reviewersData.users, ...reviewersData.teams];
+            github.rest.pulls.removeRequestedReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              reviewers
+            })
