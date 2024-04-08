@@ -33,3 +33,4 @@ jobs:
               pull_number: context.issue.number,
               reviewers
             })
+            console.log(reviewers);
