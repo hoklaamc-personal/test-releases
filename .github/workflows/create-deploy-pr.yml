@@ -1,9 +1,8 @@
 name: Schedule Pull Request
 
-on: workflow_dispatch
-
-#   schedule:
-#     - cron: '0 13 * * 1' # Every Monday at 1 PM
+on:
+  schedule:
+    - cron: '0 13 * * 1' # Every Monday at 1 PM
 
 jobs:
   create-pull-request:
@@ -32,5 +31,5 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           branch: weekly-deploy-${{ steps.date.outputs.date }}
           title: "Other(N/A): Weekly Deploy [${{ steps.date.outputs.date }}]"
-          body: "Automated weekly deploy pull request by "
+          body: "Automated weekly deploy pull request"
           

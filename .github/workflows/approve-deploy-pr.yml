@@ -8,7 +8,7 @@ jobs:
   approve:
     name: Approve deploy pull request
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == '!merge' }} && ${{ github.event.issue.user == 'hok-personal-test-releases' }}
+    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == '!merge' }} && ${{ github.event.issue.user.name == 'hok-personal-test-releases' }}
     steps:
       - name: Generate GitHub App token
         id: generate_token
@@ -21,7 +21,7 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Deploy pull request merge triggered by ${{ github.event.comment.user }}
+            Deploy pull request merge triggered by ${{ github.event.comment.user.name }}
       - uses: actions/github-script@v7
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
@@ -32,3 +32,4 @@ jobs:
               pull_number: context.issue.number,
               merge_method: 'merge'
             });
+            console.log(github.event.issue.user.name);
