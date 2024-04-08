@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == '!merge' }} && ${{ github.event.issue.user.name == 'hok-personal-test-releases' }}
     steps:
+      - name: check
+        run: echo ${{ github.event.issue.user.name }}
       - name: Generate GitHub App token
         id: generate_token
         uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
@@ -32,4 +34,3 @@ jobs:
               pull_number: context.issue.number,
               merge_method: 'merge'
             });
-            console.log(github.event.issue.user.name);
