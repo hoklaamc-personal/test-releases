@@ -1,4 +1,4 @@
-name: Approve Deploy PR
+name: Merge Deploy PR
 
 on:
   issue_comment:
@@ -8,10 +8,8 @@ jobs:
   approve:
     name: Approve deploy pull request
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == '!merge' }} && ${{ github.event.issue.user.name == 'hok-personal-test-releases' }}
+    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == '!merge' }}
     steps:
-      - name: check
-        run: echo ${{ github.event.issue.user.name }}
       - name: Generate GitHub App token
         id: generate_token
         uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
@@ -28,9 +26,4 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            github.rest.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              merge_method: 'merge'
-            });
+            console.log('deploy'));
