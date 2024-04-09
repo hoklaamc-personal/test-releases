@@ -23,9 +23,7 @@ jobs:
           message: |
             Deploy pull request merge triggered by ${{ github.event.comment.user.name }}
       - uses: actions/github-script@v7
-        env:
-          event: ${{ github.event }}
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            console.log(JSON.stringify(process.env.event.issue));
+            console.log(JSON.stringify(github.event));
