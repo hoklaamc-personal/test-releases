@@ -42,15 +42,16 @@ jobs:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
             const { PR_NUMBER } = process.env;
+            const { owner, name } = context.repository;
             console.log(context);
             const reviewers = await github.rest.pulls.listRequestedReviewers({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner,
+              repo: name,
               pull_number: PR_NUMBER
             });
             github.rest.pulls.removeRequestedReviewers({
               owner,
-              repo,
+              repo: name,
               pull_number,
               reviewers
             });
