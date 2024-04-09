@@ -26,4 +26,4 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            console.log('deploy'));
+            console.log('deployy'));
