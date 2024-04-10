@@ -25,5 +25,10 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            console.log(context.issue);
+            const pull = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            console.log(pull.data);
             
