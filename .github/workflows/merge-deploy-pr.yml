@@ -25,10 +25,14 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            const pull = await github.rest.pulls.get({
+            const pull = (await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number
-            });
-            console.log(context);
+            })).data;
+            const approved_users = (await github.rest.teams.getByName({
+              org: 'hoklaamc-personal',
+              team_slug: 'platform-frontend-deployers'
+            })).data;
+            console.log(approved_users);
             
