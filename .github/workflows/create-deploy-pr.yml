@@ -42,11 +42,11 @@ jobs:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
             const { PR_NUMBER } = process.env;
-            const { owner, name } = context.payload.repository;
-            console.log(owner, name);
+            const owner = 'hoklaamc-personal';
+            const repo = 'test-releases';
             const reviewers = await github.rest.pulls.listRequestedReviewers({
               owner,
-              repo: name,
+              repo,
               pull_number: PR_NUMBER
             });
             console.log(reviewers);
