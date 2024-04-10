@@ -49,12 +49,12 @@ jobs:
               repo,
               pull_number: PR_NUMBER
             });
-            console.log(reviewers.teams);
-            const team_reviewers = reviewers.teams.map(team => team.name);
+            console.log(reviewers.data.teams);
+            const team_reviewers = reviewers.data.teams.map(team => team.name);
             github.rest.pulls.removeRequestedReviewers({
               owner,
               repo,
               pull_number,
-              reviewers: reviewers.users,
+              reviewers: reviewers.data.users,
               team_reviewers
             });
