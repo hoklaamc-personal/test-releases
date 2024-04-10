@@ -36,5 +36,5 @@ jobs:
             })).data;
             const approvedUsersLogins = approvedUsers.map(user => user.login);
             console.log(approvedUsersLogins);
-            console.log(context);
+            console.log(context.repo);
             
