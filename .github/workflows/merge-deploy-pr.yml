@@ -30,7 +30,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             })).data;
-            const approved_users = (await github.rest.teams.getByName({
+            const approved_users = (await github.rest.teams.listTeamMembersInOrg({
               org: 'hoklaamc-personal',
               team_slug: 'platform-frontend-deployers'
             })).data;
