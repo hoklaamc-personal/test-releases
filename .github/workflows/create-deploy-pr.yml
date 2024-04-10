@@ -43,6 +43,7 @@ jobs:
           script: |
             const { PR_NUMBER } = process.env;
             const { owner, name } = context.payload.repository;
+            console.log(owner, name);
             const reviewers = await github.rest.pulls.listRequestedReviewers({
               owner,
               repo: name,
