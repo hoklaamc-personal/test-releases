@@ -35,6 +35,6 @@ jobs:
               team_slug: 'platform-frontend-deployers'
             })).data;
             const approvedUsersLogins = approvedUsers.map(user => user.login);
-            console.log(approvedUsersLogins);
-            console.log(context, context.payload);
+            const commenter = context.payload.sender.login;
+            console.log(approvedUsersLogins.includes(commenter));
             
