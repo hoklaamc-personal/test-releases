@@ -30,9 +30,12 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             })).data;
-            const approved_users = (await github.rest.teams.listMembersInOrg({
+            const approvedUsers = (await github.rest.teams.listMembersInOrg({
               org: 'hoklaamc-personal',
               team_slug: 'platform-frontend-deployers'
             })).data;
-            console.log(approved_users);
+            const approvedUsersLogins = approvedUsers.map(user => user.login);
+            if (approvedUsersLogins.includes(context.comment.sender.login)) {
+              console.log('merge');
+            }
             
