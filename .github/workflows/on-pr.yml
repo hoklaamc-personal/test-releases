@@ -23,5 +23,6 @@ jobs:
           private_key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
       - uses: ridedott/merge-me-action@v2
         with:
+          GITHUB_LOGIN: 'hok-personal-test-releases'
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           ENABLED_FOR_MANUAL_CHANGES: 'true'
