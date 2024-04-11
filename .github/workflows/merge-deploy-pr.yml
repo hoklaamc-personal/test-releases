@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Generate GitHub App token
         id: generate_token
-        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+        uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.TEST_APP_ID }}
-          private_key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.TEST_APP_ID }}
+          private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
       - uses: actions/checkout@v4
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
@@ -32,7 +32,6 @@ jobs:
               pull_number: context.issue.number
             })).data;
             const isBotPR = pull.user.type === 'Bot';
-            console.log('hi');
 
             // Check if commenter is in platform-frontend-deployers team
             const approvedUsers = (await github.rest.teams.listMembersInOrg({
