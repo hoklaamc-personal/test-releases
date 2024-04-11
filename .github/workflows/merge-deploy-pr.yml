@@ -21,9 +21,12 @@ jobs:
         with:
           message: |
             Deploy pull request merge triggered by ${{ github.event.comment.user.name }}
-      - uses: actions/github-script@v7
+      - name: Merge
+        id: merge
+        uses: actions/github-script@v7
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
+          result-encoding: number
           script: |
             // Check if PR is created by bot
             const pull = (await github.rest.pulls.get({
@@ -48,7 +51,14 @@ jobs:
                 pull_number: context.issue.number,
                 merge_method: 'merge'
               });
+              return 0;
             } else {
               console.log('This PR cannot be merged with the !merge command.');
+              return 1;
             }
+      - name: Unauthorized merge comment
+        uses: thollander/actions-comment-pull-request@v2
+        if: ${{ steps.merge.outputs.result == 1 }}
+        with:
+          message: You do not have permissions to trigger a merge for this pull request.
             
