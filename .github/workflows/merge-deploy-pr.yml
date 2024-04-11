@@ -7,6 +7,7 @@ on:
 jobs:
   approve:
     name: Approve deploy pull request
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '!merge' }}
     runs-on: ubuntu-latest
     steps:
       - name: Generate GitHub App token
