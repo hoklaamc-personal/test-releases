@@ -8,7 +8,6 @@ jobs:
   approve:
     name: Approve deploy pull request
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request }} && ${{ github.event.comment.body == '!merge' }}
     steps:
       - name: Generate GitHub App token
         id: generate_token
@@ -26,4 +25,30 @@ jobs:
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
-            console.log('deployy'));
+            // Check if PR is created by bot
+            const pull = (await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            })).data;
+            const isBotPR = pull.user.type === 'Bot';
+
+            // Check if commenter is in platform-frontend-deployers team
+            const approvedUsers = (await github.rest.teams.listMembersInOrg({
+              org: 'hoklaamc-personal',
+              team_slug: 'platform-frontend-deployers'
+            })).data;
+            const approvedUsersLogins = approvedUsers.map(user => user.login);
+            const commenter = context.payload.sender.login;
+            const isCommenterApproved = approvedUsersLogins.includes(commenter);
+            if (isBotPR && isCommenterApproved) {
+              github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                merge_method: 'merge'
+              });
+            } else {
+              console.log('This PR cannot be merged with the !merge command.');
+            }
+            
