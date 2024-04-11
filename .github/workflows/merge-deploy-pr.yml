@@ -32,6 +32,7 @@ jobs:
               pull_number: context.issue.number
             })).data;
             const isBotPR = pull.user.type === 'Bot';
+            console.log('hi');
 
             // Check if commenter is in platform-frontend-deployers team
             const approvedUsers = (await github.rest.teams.listMembersInOrg({
