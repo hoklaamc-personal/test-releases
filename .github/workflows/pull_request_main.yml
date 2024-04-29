@@ -1,0 +1,16 @@
+on:
+  pull_request:
+    branches: [main]
+    types: [opened]
+
+jobs:
+  required:
+    name: Dummy Required Check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Dummy Required Check Passing"
+  optional:
+    name: Dummy Optional Check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Dummy Optional Check Passing"
