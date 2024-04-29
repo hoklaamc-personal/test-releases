@@ -10,7 +10,7 @@ jobs:
     name: Weekly Deploy Auto Merge
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.event.sender.name }}"
+      - run: echo "${{ github.event.sender }}"
       - name: Generate GitHub App token
         id: generate_token
         uses: actions/create-github-app-token@v1
