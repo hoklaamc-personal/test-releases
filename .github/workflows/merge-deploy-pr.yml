@@ -24,6 +24,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           delay: 10
           interval: 30
+          timeout: 60
           ignore: "Weekly Deploy Auto Merge"
       - name: Comment Pull Request
         if: ${{ success() }}
