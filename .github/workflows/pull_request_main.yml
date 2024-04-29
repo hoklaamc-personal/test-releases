@@ -10,9 +10,12 @@ jobs:
     name: Dummy Required Check
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Dummy Required Check Passing"
+      - run: |
+          echo "Dummy Required Check Passing"
   optional:
     name: Dummy Optional Check
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Dummy Optional Check Passing"
+      - run: |
+          echo "Dummy Optional Check Failing"
+          exit 1

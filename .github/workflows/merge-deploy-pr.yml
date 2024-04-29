@@ -7,6 +7,9 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      checks: read
+      contents: read
     name: Weekly Deploy Auto Merge
     runs-on: ubuntu-latest
     if: github.event.sender.login == 'hok-personal-test-releases[bot]'
@@ -17,14 +20,20 @@ jobs:
         with:
           app-id: ${{ secrets.TEST_APP_ID }}
           private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
-      - name: Wait for Checks to Pass
-        id: wait_for_checks
-        uses: poseidon/wait-for-status-checks@v0.4.1
+      # - name: Wait for Checks to Pass
+      #   id: wait_for_checks
+      #   uses: poseidon/wait-for-status-checks@v0.4.1
+      #   with:
+      #     token: ${{ steps.generate_token.outputs.token }}
+      #     delay: 10
+      #     interval: 30
+      #     timeout: 60
+      #     ignore: "Weekly Deploy Auto Merge"
+      - uses: wechuli/allcheckspassed@v1
         with:
-          token: ${{ steps.generate_token.outputs.token }}
-          delay: 10
-          interval: 30
-          ignore: "Weekly Deploy Auto Merge"
+          checks_include: 'Dummy Required Check'
+          delay: '0'
+          polling_interval: '1'
       - name: Comment Pull Request
         if: ${{ success() }}
         uses: marocchino/sticky-pull-request-comment@v2
@@ -45,13 +54,33 @@ jobs:
               pull_number: context.issue.number,
               merge_method: 'merge'
             });
-      - name: Notify Check Failure
+      - name: Check Failure comment
         if: ${{ failure() }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           header: checks
           message: "Some checks have failed and time-limit exceeded. Please fix checks and re-run this Merge Deploy PR job."
+      - name: Notify Slack of check failure
+        id: slack
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C06DAKH58V7'
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "@oncall-fin <${{ github.event.pull_request.html_url }}|Weekly deployment pull request> has failed checks.\nPlease resolve by re-running the check(s) in case of flakiness, or manually resolve the issue and re-run the workflow."
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
 # on:
 #   issue_comment:
