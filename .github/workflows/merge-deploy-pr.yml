@@ -3,7 +3,7 @@ name: Merge Deploy PR
 on:
   pull_request:
     branches: [main]
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
   deploy:
@@ -12,6 +12,7 @@ jobs:
       contents: read
     name: Weekly Deploy Auto Merge
     runs-on: ubuntu-latest
+    # Only run if it's the weekly deploy PR created by the bot
     if: github.event.sender.login == 'hok-personal-test-releases[bot]'
     steps:
       - name: Generate GitHub App token
@@ -32,7 +33,7 @@ jobs:
       - uses: wechuli/allcheckspassed@v1
         with:
           checks_include: 'Dummy Required Check'
-          delay: '0'
+          delay: '1'
           polling_interval: '1'
       - name: Comment Pull Request
         if: ${{ success() }}
@@ -60,7 +61,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           header: checks
-          message: "Some checks have failed and time-limit exceeded. Please fix checks and re-run this Merge Deploy PR job."
+          message: "Some checks have failed. Please fix checks and re-run this Merge Deploy PR job."
       - name: Notify Slack of check failure
         id: slack
         if: ${{ failure() }}

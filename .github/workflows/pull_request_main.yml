@@ -3,7 +3,7 @@ name: Main Pull Request CI
 on:
   pull_request:
     branches: [main]
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
   required:
@@ -11,11 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Dummy Required Check Passing"
+          echo "Dummy Required Check Failing"
+          exit 1
   optional:
     name: Dummy Optional Check
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Dummy Optional Check Failing"
-          exit 1
+          echo "Dummy Optional Check Passing"
+          exit 0
