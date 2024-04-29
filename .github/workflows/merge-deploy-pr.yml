@@ -10,7 +10,7 @@ jobs:
     name: Weekly Deploy Auto Merge
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.event.sender }}"
+      - run: echo "${{ github.event.sender.login }}"
       - name: Generate GitHub App token
         id: generate_token
         uses: actions/create-github-app-token@v1
@@ -24,6 +24,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           delay: 10
           interval: 30
+          ignore: "Weekly Deploy Auto Merge"
       # - name: Merge
       #   id: merge
       #   uses: actions/github-script@v7
