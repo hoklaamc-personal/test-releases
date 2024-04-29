@@ -25,6 +25,11 @@ jobs:
           delay: 10
           interval: 30
           ignore: "Weekly Deploy Auto Merge"
+      - name: Comment Pull Request
+        uses: thollander/actions-comment-pull-request@v2.5.0
+        with:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          message: "All checks passed. Auto-merging into master."
       - name: Merge
         id: merge
         uses: actions/github-script@v7
