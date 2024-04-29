@@ -46,13 +46,22 @@ jobs:
               pull_number: context.issue.number,
               merge_method: 'merge'
             });
-      - name: Notify Check Failure
+      - name: Check Failure comment
         if: ${{ failure() }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           header: checks
           message: "Some checks have failed and time-limit exceeded. Please fix checks and re-run this Merge Deploy PR job."
+      - name: Notify Slack of check failure
+        id: slack
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C06DAKH58V7'
+          slack-message: '@hoklaamc Weekly deployment pull request has failed checks. Please resolve by re-running the check(s) in case of flakiness, or manually resolve the issue and re-run the workflow.'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
 # on:
 #   issue_comment:
