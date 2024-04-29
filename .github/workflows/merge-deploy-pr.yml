@@ -36,9 +36,6 @@ jobs:
               pull_number: context.issue.number,
               merge_method: 'merge'
             });
-        
-
-
 
 # on:
 #   issue_comment:
