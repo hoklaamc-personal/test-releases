@@ -9,7 +9,7 @@ jobs:
   deploy:
     name: Weekly Deploy Auto Merge
     runs-on: ubuntu-latest
-    if: github.event.sender == 'hok-personal-test-releases'
+    if: github.event.pull_request.user.name == 'hok-personal-test-releases'
     steps:
       - name: Generate GitHub App token
         id: generate_token
