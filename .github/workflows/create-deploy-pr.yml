@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
-    environment: production
+    environment: deploy
     steps:
       - name: Get current date
         id: date
