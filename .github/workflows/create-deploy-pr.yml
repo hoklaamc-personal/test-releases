@@ -32,4 +32,3 @@ jobs:
           branch: weekly-deploy-${{ steps.date.outputs.date }}
           title: "Other(N/A): Weekly Deploy [${{ steps.date.outputs.date }}]"
           body: "Automated weekly deploy pull request"
-          team-reviewers: platform-frontend-deployers
