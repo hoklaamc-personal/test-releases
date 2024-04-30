@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: delayenv
     # Only run if it's the weekly deploy PR created by the bot
-    if: github.event.sender.login == 'hok-personal-test-releases[bot]'
+    if: github.event.pull_request.user.login == 'hok-personal-test-releases[bot]'
     steps:
       - name: Generate GitHub App token
         id: generate_token
