@@ -20,6 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          ref: ${{ github.event.inputs.commit || 'master' }}
+          ref: ${{ github.event.inputs.commit || 'main' }}
       - name: Deploy
         run: echo "Run deploy workflow with commit SHA :" $(git rev-parse HEAD)
