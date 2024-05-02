@@ -22,15 +22,6 @@ jobs:
         with:
           app-id: ${{ secrets.TEST_APP_ID }}
           private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
-      # - name: Wait for Checks to Pass
-      #   id: wait_for_checks
-      #   uses: poseidon/wait-for-status-checks@v0.4.1
-      #   with:
-      #     token: ${{ steps.generate_token.outputs.token }}
-      #     delay: 10
-      #     interval: 30
-      #     timeout: 60
-      #     ignore: "Weekly Deploy Auto Merge"
       - uses: wechuli/allcheckspassed@v1
         with:
           checks_include: 'Dummy Required Check'
