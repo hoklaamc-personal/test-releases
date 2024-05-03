@@ -22,4 +22,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.commit || 'main' }}
       - name: Deploy
-        run: echo "Pusher.name ${{ github.event.pusher.name }} Pusher.username ${{github.event.pusher.username}} Author.name ${{github.event.head_commit.author.name }} Author.username ${{github.event.head_commit.author.username}} Committer name ${{github.event.head_commit.committer.name }} Committer username ${{github.event.head_commit.committer.username }} Sender.name ${{github.event.sender.name}} Sender.login ${{github.event.sender.login}}"
+        run: echo "Deploying"
+      - name: Message
+        if: github.event.head_commit.author.name == 'hok-personal-test-releases[bot]'
+        run: echo "Message"
