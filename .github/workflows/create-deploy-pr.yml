@@ -1,6 +1,11 @@
 name: Schedule Pull Request
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      skipNotifySlack:
+        description: 'Set to true to skip notifying Slack of the weekly deploy.'
+        type: boolean
 
 jobs:
   create-pull-request:
