@@ -24,7 +24,7 @@ jobs:
           private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
       - uses: wechuli/allcheckspassed@v1
         with:
-          checks_include: 'Dummy Required Check'
+          checks_include: 'Dummy'
           polling_interval: '1'
       - name: Comment Pull Request
         if: ${{ success() }}
