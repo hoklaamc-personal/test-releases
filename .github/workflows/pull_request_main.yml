@@ -7,16 +7,16 @@ on:
 
 jobs:
   required:
-    name: Dummy Required Check
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Dummy Required Check Passing"
+          echo "Test"
           exit 0
   optional:
-    name: Dummy Optional Check
+    name: E2E Test
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Dummy Optional Check Passing"
+          echo "E2E Test"
           exit 0

@@ -12,7 +12,6 @@ jobs:
       contents: read
     name: Weekly Deploy Auto Merge
     runs-on: ubuntu-latest
-    environment: delayenv
     # Only run if it's the weekly deploy PR created by the bot
     if: github.event.pull_request.user.login == 'hok-personal-test-releases[bot]'
     steps:
@@ -24,7 +23,7 @@ jobs:
           private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
       - uses: wechuli/allcheckspassed@v1
         with:
-          checks_include: 'Dummy Required Check'
+          checks_include: 'Test'
           polling_interval: '1'
       - name: Comment Pull Request
         if: ${{ success() }}
