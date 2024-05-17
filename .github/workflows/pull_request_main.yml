@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  required:
+  test:
     name: Test
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +19,13 @@ jobs:
     steps:
       - run: |
           echo "Prettier"
+          exit 0
+  graphql:
+    name: GraphQL Schema Compatibility Check
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "GraphQL Schema Compatibility Check"
           exit 0
   optional:
     name: E2E Test
