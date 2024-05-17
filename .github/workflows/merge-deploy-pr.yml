@@ -23,7 +23,7 @@ jobs:
           private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
       - uses: wechuli/allcheckspassed@v1
         with:
-          checks_include: '^Test$'
+          checks_include: 'Prettier, ^Test$'
           polling_interval: '0.5'
           retries: '20'
       - name: Comment Pull Request
