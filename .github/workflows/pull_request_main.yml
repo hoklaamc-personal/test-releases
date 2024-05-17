@@ -13,6 +13,13 @@ jobs:
       - run: |
           echo "Test"
           exit 0
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Prettier"
+          exit 0
   optional:
     name: E2E Test
     runs-on: ubuntu-latest
