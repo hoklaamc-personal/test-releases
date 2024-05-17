@@ -19,4 +19,4 @@ jobs:
     steps:
       - run: |
           echo "E2E Test"
-          exit 0
+          exit 1
