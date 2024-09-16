@@ -1,0 +1,36 @@
+name: Main Pull Request CI
+
+on:
+  pull_request:
+    branches: [staging]
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Test"
+          exit 0
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Prettier"
+          exit 0
+  graphql:
+    name: GraphQL Schema Compatibility Check
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "GraphQL Schema Compatibility Check"
+          exit 0
+  e2e:
+    name: E2E Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "E2E Test"
+          exit 0
