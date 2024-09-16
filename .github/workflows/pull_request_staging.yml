@@ -1,4 +1,4 @@
-name: Main Pull Request CI
+name: Staging Pull Request CI
 
 on:
   pull_request:
